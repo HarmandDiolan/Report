@@ -5,14 +5,19 @@
 
     <h2>Schools List</h2>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+   @if(session('success'))
+        <div id="flash-success-alert" class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     @endif
-
-    <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addModal">
-        Add School
-    </button>
-
+    
+    <div class="d-flex justify-content-end mb-3">
+        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addModal">
+            Add School
+        </button>
+    </div>
+    
     <table id="schoolsTable" class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -27,29 +32,30 @@
                 <td>
                     <a href="{{ route('schools.show', $school->id) }}" class="btn btn-primary btn-sm">
                         <i class="fa fa-eye" aria-hidden="true"></i>
-                    </a>
+                    </a>        
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
 
-    @include('modal.create') <!-- your modal -->
+    @include('modal.create')
+    
 
 </main>
 @endsection
 
 @section('scripts')
 <script>
-    // Initialize Simple-DataTables with search, sorting, and pagination
+    
     const table = document.querySelector("#schoolsTable");
     if (table) {
         new simpleDatatables.DataTable(table, {
-            searchable: true,   // enable search box
-            fixedHeight: false, // adjust table height automatically
-            sortable: true,     // enable column sorting
-            perPage: 5,         // 5 rows per page
-            perPageSelect: [5, 10, 20, 50] // dropdown for page length
+            searchable: true,   
+            fixedHeight: false, 
+            sortable: true,     
+            perPage: 5,         
+            perPageSelect: [5, 10, 20, 50]
         });
     }
 </script>
