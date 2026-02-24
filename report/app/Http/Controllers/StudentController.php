@@ -32,7 +32,7 @@ class StudentController extends Controller
     {
         $school = School::findOrFail($request->school_id);
 
-        // Split names by new lines (handles Windows, Mac, Linux)
+        
         $names = preg_split('/\r\n|\r|\n/', $request->studentNames);
 
         foreach ($names as $name) {
@@ -63,7 +63,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('students.edit', compact('students'));
     }
 
     /**
@@ -71,7 +71,13 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-        //
+        $student->update([
+            'name' => $request->name,
+            'course' => $request->course,
+            'office' => $request->office
+        ]);
+
+        return redirect()->route('schools.show', $student->school_id)->with('success', 'Student updated successfully');
     }
 
     /**

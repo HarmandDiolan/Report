@@ -18,7 +18,7 @@ class SchoolController extends Controller
         return view('schools.create');
     }
 
-    public function store(SchoolRequest $request) // <- Use SchoolRequest
+    public function store(SchoolRequest $request) 
     {
         School::create($request->validated());
 
