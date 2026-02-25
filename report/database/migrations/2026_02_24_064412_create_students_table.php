@@ -16,6 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('course');
             $table->string('office')->nullable();
+            $table->integer('contactNumber')->nullable();
+            $table->date('dateStart')->nullable();
+            $table->integer('hoursOfDuty')->nullable();
+            $table->integer('daysOfDuty')->nullable();
+            $table->date('endOfDuty')->nullable();
             $table->foreignId('school_id')->constrained('schools')->onDelete('cascade');
             $table->timestamps();
         });

@@ -25,6 +25,11 @@ class StoreStudentRequest extends FormRequest
             'studentNames' => 'required|string',
             'studentCourse' => 'nullable|string|max:225',
             'studentOffice' => 'nullable|string|max:225',
+            'studentContact' => 'nullable|integer|max:20',
+            'dateStart' => 'nullable|date',
+            'hoursOfDuty' => 'nullable|integer|max:20',
+            'daysOfDuty' => 'nullable|integer|max:20',
+            'endOfDuty' => 'nullable|date',
             'school_id' => 'required|exists:schools,id',
         ];
     }

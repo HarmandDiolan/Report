@@ -39,6 +39,38 @@
                         @enderror
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label">Contact Number</label>
+                        <input type="number" id="studentContact" name="studentContact"
+                               class="form-control">
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label">Date Started</label>
+                            <input type="date" id="studentStart" name="dateStart"
+                                class="form-control">
+                        </div>
+                            <div class="col">
+                            <label class="form-label">End Of Duty</label>
+                            <input type="date" id="studentEnd" name="endOfDuty"
+                                class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label">Hours Of Duty</label>
+                            <input type="number" id="studentHours" name="hoursOfDuty"
+                                class="form-control">
+                        </div>
+                            <div class="col">
+                            <label class="form-label">Days Of Duty</label>
+                            <input type="number" id="studentDays" name="daysOfDuty"
+                                class="form-control">
+                        </div>
+                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-success">Add Student</button>

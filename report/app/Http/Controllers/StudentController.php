@@ -42,6 +42,11 @@ class StudentController extends Controller
                     'name' => $name,
                     'course' => $request->studentCourse,
                     'office' => $request->studentOffice,
+                    'contactNumber' => $request->studentContact,
+                    'dateStart' => $request->dateStart,
+                    'hoursOfDuty' => $request->hoursOfDuty,
+                    'daysOfDuty' => $request->daysOfDuty,
+                    'endOfDuty' => $request->endOfDuty,
                 ]);
             }
         }
@@ -55,7 +60,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        return response()->json($student);
     }
 
     /**
@@ -63,7 +68,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        return view('students.edit', compact('students'));
+        return view('students.edit', compact('student'));
     }
 
     /**
@@ -74,7 +79,12 @@ class StudentController extends Controller
         $student->update([
             'name' => $request->name,
             'course' => $request->course,
-            'office' => $request->office
+            'office' => $request->office,
+            'contactNumber' => $request->contactNumber,
+            'dateStart' => $request->dateStart,
+            'hoursOfDuty' => $request->hoursOfDuty,
+            'daysOfDuty' => $request->daysOfDuty,
+            'endOfDuty' => $request->endOfDuty
         ]);
 
         return redirect()->route('schools.show', $student->school_id)->with('success', 'Student updated successfully');
@@ -85,6 +95,9 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+
+
+        return redirect()->route('schools.show', $student->school_id);
     }
 }

@@ -24,7 +24,13 @@ class UpdateStudentRequest extends FormRequest
         return [
             'name' => 'required|string|max:225',
             'course' => 'nullable|string|max:225',
-            'office' => 'nullable|string|max:225'
+            'office' => 'nullable|string|max:225',
+            'contactNumber' => 'nullable|numeric',
+            'dateStart' => 'nullable|date',
+            'hoursOfDuty' => 'nullable|integer|min:0',
+            'daysOfDuty' => 'nullable|integer|min:0',
+            'endOfDuty' => 'nullable|date',
+            'date' => 'nullable|date',
         ];
     }
 }

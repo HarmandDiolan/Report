@@ -37,16 +37,46 @@
                     <td>{{$student->course}}</td>
                     <td>{{$student->office}}</td>
                     <td>
+                       <button class="btn btn-sm btn-primary viewtBtn"
+                            data-id="{{ $student->id }}"
+                            data-name="{{ $student->name }}"
+                            data-course="{{ $student->course }}"
+                            data-office="{{ $student->office }}"
+                            data-contact="{{ $student->contactNumber }}"
+                            data-start="{{ $student->dateStart }}"
+                            data-end="{{ $student->endOfDuty }}"
+                            data-hours="{{ $student->hoursOfDuty }}"
+                            data-days="{{ $student->daysOfDuty }}"
+                            data-bs-toggle="modal"
+                            data-bs-target="#showStudentModal">
+                            <i class="fa fa-eye"></i>
+                        </button>
                         <button class="btn btn-sm btn-primary editBtn"
-                                data-id="{{ $student->id }}"
-                                data-name="{{ $student->name }}"
-                                data-course="{{ $student->course }}"
-                                data-office="{{ $student->office }}"
-                                data-bs-toggle="modal"
-                                data-bs-target="#editStudentModal">
+                            data-id="{{ $student->id }}"
+                            data-name="{{ $student->name }}"
+                            data-course="{{ $student->course }}"
+                            data-office="{{ $student->office }}"
+                            data-contact="{{ $student->contactNumber }}"
+                            data-start="{{ $student->dateStart }}"
+                            data-end="{{ $student->endOfDuty }}"
+                            data-hours="{{ $student->hoursOfDuty }}"
+                            data-days="{{ $student->daysOfDuty }}"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editStudentModal">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <a href="{{ route('students.edit', $student->id) }}" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></i></a>
+                        <form action="{{ route('students.destroy', $student->id) }}" id="student-form-{{$student->id}}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" 
+                                    class="btn btn-sm btn-danger deleteBtn" 
+                                    data-id="{{ $student->id }}" 
+                                    data-name="{{ $student->name }}" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#myModal">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
@@ -56,6 +86,8 @@
 
     @include('modal.addStudent')
     @include('modal.editStudent')
+    @include('modal.student.show')
+    @include('modal.student.delete')
 @endsection
 
 @section('scripts')
@@ -73,23 +105,52 @@
     }
 </script>
 <script>
-    document.querySelectorAll('.editBtn').forEach(button => {
-        button.addEventListener('click', function () {
+document.querySelectorAll('.editBtn').forEach(button => {
+    button.addEventListener('click', function () {
+        let id = this.dataset.id;
+        let name = this.dataset.name;
+        let course = this.dataset.course;
+        let office = this.dataset.office;
+        let contact = this.dataset.contact;
+        let dateStart = this.dataset.start;
+        let endOfDuty = this.dataset.end;
+        let hoursOfDuty = this.dataset.hours;
+        let daysOfDuty = this.dataset.days;
 
-            let id = this.dataset.id;
-            let name = this.dataset.name;
-            let course = this.dataset.course;
-            let office = this.dataset.office;
+        document.getElementById('editStudentForm').action = "/students/" + id;
 
-            // Set form action dynamically
-            document.getElementById('editStudentForm').action = "/students/" + id;
+        document.getElementById('edit_name').value = name;
+        document.getElementById('edit_course').value = course;
+        document.getElementById('edit_office').value = office;
+        document.getElementById('edit_contact').value = contact;
+        document.getElementById('edit_start').value = dateStart;
+        document.getElementById('edit_end').value = endOfDuty;
+        document.getElementById('edit_hours').value = hoursOfDuty;
+        document.getElementById('edit_days').value = daysOfDuty;
+    });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-            // Fill inputs
-            document.getElementById('edit_name').value = name;
-            document.getElementById('edit_course').value = course;
-            document.getElementById('edit_office').value = office;
+    const buttons = document.querySelectorAll(".viewtBtn");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", function () {
+
+            document.getElementById("show_name").textContent = this.dataset.name;
+            document.getElementById("show_course").textContent = this.dataset.course;
+            document.getElementById("show_office").textContent = this.dataset.office;
+            document.getElementById("show_contact").textContent = this.dataset.contact;
+            document.getElementById("show_start").textContent = this.dataset.start;
+            document.getElementById("show_end").textContent = this.dataset.end;
+            document.getElementById("show_hours").textContent = this.dataset.hours;
+            document.getElementById("show_days").textContent = this.dataset.days;
+
         });
     });
+
+});
 </script>
 
 @endsection
