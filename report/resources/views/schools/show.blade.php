@@ -35,13 +35,13 @@
                 <tr>
                     <td>{{$student->name}}</td>
                     <td>{{$student->course}}</td>
-                    <td>{{$student->office}}</td>
+                    <td>{{$student->office ? $student->office->name : ''}}</td>
                     <td>
                        <button class="btn btn-sm btn-primary viewtBtn"
                             data-id="{{ $student->id }}"
                             data-name="{{ $student->name }}"
                             data-course="{{ $student->course }}"
-                            data-office="{{ $student->office }}"
+                            data-office="{{ $student->office ? $student->office->name : '' }}"
                             data-contact="{{ $student->contactNumber }}"
                             data-start="{{ $student->dateStart }}"
                             data-end="{{ $student->endOfDuty }}"
@@ -110,7 +110,7 @@ document.querySelectorAll('.editBtn').forEach(button => {
         let id = this.dataset.id;
         let name = this.dataset.name;
         let course = this.dataset.course;
-        let office = this.dataset.office;
+        let officeId = this.dataset.office
         let contact = this.dataset.contact;
         let dateStart = this.dataset.start;
         let endOfDuty = this.dataset.end;
@@ -121,7 +121,7 @@ document.querySelectorAll('.editBtn').forEach(button => {
 
         document.getElementById('edit_name').value = name;
         document.getElementById('edit_course').value = course;
-        document.getElementById('edit_office').value = office;
+        document.getElementById('edit_office').value = officeId;
         document.getElementById('edit_contact').value = contact;
         document.getElementById('edit_start').value = dateStart;
         document.getElementById('edit_end').value = endOfDuty;

@@ -14,7 +14,7 @@ class Office extends Model
 
     public function students(){
 
-        return this->belongsTo(Student::class);
+        return this->HasMany(Student::class);
 
     }
 }

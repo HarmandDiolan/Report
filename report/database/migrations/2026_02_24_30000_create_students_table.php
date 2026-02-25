@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('course');
-            $table->string('office')->nullable();
+            $table->foreignId('office_id')->constrained('offices')->onDelete('cascade'); 
             $table->integer('contactNumber')->nullable();
             $table->date('dateStart')->nullable();
             $table->integer('hoursOfDuty')->nullable();

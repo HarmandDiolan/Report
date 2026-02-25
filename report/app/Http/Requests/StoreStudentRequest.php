@@ -24,7 +24,7 @@ class StoreStudentRequest extends FormRequest
         return [
             'studentNames' => 'required|string',
             'studentCourse' => 'nullable|string|max:225',
-            'studentOffice' => 'nullable|string|max:225',
+            'office_id' => 'required|exists:offices,id',
             'studentContact' => 'nullable|integer|max:20',
             'dateStart' => 'nullable|date',
             'hoursOfDuty' => 'nullable|integer|max:20',

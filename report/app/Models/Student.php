@@ -11,7 +11,7 @@ class Student extends Model
 
     protected $fillable = ['name', 
         'course', 
-        'office', 
+        'office_id', 
         'contactNumber', 
         'dateStart',
         'hoursOfDuty',
@@ -22,12 +22,12 @@ class Student extends Model
 
     public function schools(){
 
-        return this->belongsTo(School::class);
+        return $this->belongsTo(School::class);
 
     }
 
-    public function offices(){
+    public function office(){
 
-        return $this->hasMany(Office::class);
+        return $this->belongsTo(Office::class, 'office_id');
     }
 }

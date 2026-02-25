@@ -32,9 +32,16 @@
 
                     <div class="mb-3">
                         <label for="studentOffice" class="form-label">Office</label>
-                        <input type="text" class="form-control @error('studentOffice') is-invalid @enderror" 
-                               id="studentOffice" name="studentOffice" value="{{ old('studentOffice') }}">
-                        @error('studentOffice')
+                        <select class="form-control @error('office_id') is-invalid @enderror" 
+                                id="studentOffice" name="office_id">
+                            <option value="">-- Select Office --</option>
+                            @foreach($offices as $office)
+                                <option value="{{ $office->id }}" {{ old('office_id') == $office->id ? 'selected' : '' }}>
+                                    {{ $office->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('office_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

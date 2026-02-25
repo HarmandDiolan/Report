@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\School;
+use App\Models\Office;
+use App\Models\Student;
 use App\Http\Requests\SchoolRequest;
 
 class SchoolController extends Controller
@@ -29,7 +31,10 @@ class SchoolController extends Controller
 
     public function show(School $school)
     {   
-        return view('schools.show', compact('school'));   
+        $school->load('students');
+        $offices = Office::all();
+
+        return view('schools.show', compact('school', 'offices'));   
     }
 
     public function edit(School $school)

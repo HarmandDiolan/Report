@@ -23,7 +23,7 @@ class OfficeController extends Controller
      */
     public function create()
     {
-        return view('offices.create');
+        return view('offices.index');
     }
 
     /**
@@ -31,7 +31,11 @@ class OfficeController extends Controller
      */
     public function store(StoreOfficeRequest $request)
     {
-        //
+        Office::create($request->validated());
+
+        return redirect()
+            ->route('offices.index')
+            ->with('success', 'Office has been added successfully');
     }
 
     /**
@@ -39,7 +43,7 @@ class OfficeController extends Controller
      */
     public function show(Office $office)
     {
-        //
+        
     }
 
     /**

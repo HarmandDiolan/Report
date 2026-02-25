@@ -41,7 +41,7 @@ class StudentController extends Controller
                 $school->students()->create([
                     'name' => $name,
                     'course' => $request->studentCourse,
-                    'office' => $request->studentOffice,
+                    'office_id' => $request->office_id,
                     'contactNumber' => $request->studentContact,
                     'dateStart' => $request->dateStart,
                     'hoursOfDuty' => $request->hoursOfDuty,
@@ -79,7 +79,7 @@ class StudentController extends Controller
         $student->update([
             'name' => $request->name,
             'course' => $request->course,
-            'office' => $request->office,
+            'office_id' => $request->office_id,
             'contactNumber' => $request->contactNumber,
             'dateStart' => $request->dateStart,
             'hoursOfDuty' => $request->hoursOfDuty,
