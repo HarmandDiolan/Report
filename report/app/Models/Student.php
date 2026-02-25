@@ -25,4 +25,9 @@ class Student extends Model
         return this->belongsTo(School::class);
 
     }
+
+    public function offices(){
+
+        return $this->hasMany(Office::class);
+    }
 }

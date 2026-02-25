@@ -41,7 +41,7 @@
 
                     <div class="mb-3">
                         <label class="form-label">Contact Number</label>
-                        <input type="number" id="studentContact" name="studentContact"
+                        <input type="number" id="studentContact" name="contactNumber"
                                class="form-control">
                     </div>
 

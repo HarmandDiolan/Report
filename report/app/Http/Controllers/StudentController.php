@@ -51,7 +51,7 @@ class StudentController extends Controller
             }
         }
 
-        // Return only AFTER the loop finishes
+       
         return redirect()->back()->with('success', 'Students added successfully!');
     }
 

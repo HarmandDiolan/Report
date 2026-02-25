@@ -3,18 +3,17 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="icon-box">
-          <!-- Use Material Icon X instead of Font Awesome -->
           <i class="material-icons">&#xE5CD;</i>
         </div>
         <h4 class="modal-title">Are you sure?</h4>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
       </div>
       <div class="modal-body">
         <p id="modal-text">Do you really want to delete this student? This process cannot be undone.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancel</button>
-        <form id="deleteForm" method="POST" class="d-inline" action="{{ route('students.destroy', $student->id) }}">
+        <form id="deleteForm" method="POST" class="d-inline">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete</button>
@@ -23,6 +22,8 @@
     </div>
   </div>
 </div>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <style>
     .modal-confirm {
@@ -110,13 +111,3 @@
     }
 
 </style>
-
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script>
-function openDeleteModal(student) {
-    const form = document.getElementById('deleteForm');
-    form.action = `/students/${student}`; // replace with your actual delete route
-    const myModal = new bootstrap.Modal(document.getElementById('myModal'));
-    myModal.show();
-}
-</script>
