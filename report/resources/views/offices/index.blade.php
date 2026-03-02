@@ -11,26 +11,28 @@
             Add Office
         </button>
     </div>
-    
-    <table id="schoolsTable" class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Applicants</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($offices as $office)
-            <tr>
-                <td>{{ $office->name}}</td>
-                <td>{{ $office->students_count}}</td>
-                <td></td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-
+    <div class="card mb-4">
+        <div class="card-body">
+        <table id="schoolsTable" class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Applicants</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($offices as $office)
+                <tr>
+                    <td>{{ $office->name}}</td>
+                    <td>{{ $office->students_count}}</td>
+                    <td></td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        </div>
+    </div>
     @include('modal.office.addOffice')
     
 

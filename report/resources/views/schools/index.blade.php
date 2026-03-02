@@ -11,9 +11,11 @@
             Add School
         </button>
     </div>
-    
-    <table id="schoolsTable" class="table table-bordered table-striped">
-        <thead>
+    <div class="card mb-4">
+        <div class="card-body">
+   
+    <table id="schoolsTable" class="table table-hover">
+        <thead class="table-light">
             <tr>
                 <th>Name</th>
                 <th>Action</th>
@@ -32,7 +34,8 @@
             @endforeach
         </tbody>
     </table>
-
+    </div>
+</div>
     @include('modal.create')
     
 

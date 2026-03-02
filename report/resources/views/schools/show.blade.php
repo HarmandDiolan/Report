@@ -17,8 +17,10 @@
 </div>
 
 <main class="p-4">
-    <table id="showTable" class="table table-bordered table-striped">
-        <thead>
+    <div class="card mb-4">
+        <div class="card-body">
+    <table id="showTable" class="table table-hover">
+        <thead class="table-light">
             <tr>
                 <th>Name</th>
                 <th>Course</th>
@@ -79,6 +81,8 @@
             @endforeach
         </tbody>
     </table>
+    </div>
+</div>
 </main>
 
 <!-- Include Modals -->
