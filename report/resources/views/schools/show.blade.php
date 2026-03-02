@@ -2,20 +2,22 @@
 
 @section('content')
 
-    <a href="{{route('schools.index')}}" class="btn btn-light btn-sm"><i class="fa fa-arrow-left" " aria-hidden="true"></i></a>
+<a href="{{ route('schools.index') }}" class="btn btn-light btn-sm">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</a>
 
-   <div class="d-flex justify-content-end mb-3">
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addStudentModal">
-            Add Student
-        </button>
-    </div>
+<div class="d-flex justify-content-end mb-3">
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+        Add Student
+    </button>
+</div>
 
-    <div class="mb-3">
-        <h3 class="fw-bold">{{$school->name}}</h3>
-    </div>
+<div class="mb-3">
+    <h3 class="fw-bold">{{ $school->name }}</h3>
+</div>
 
-    <main class="p-4">
-        <table id="showTable" class="table table-bordered table-striped">
+<main class="p-4">
+    <table id="showTable" class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Name</th>
@@ -26,12 +28,13 @@
         </thead>
         <tbody>
             @foreach($school->students as $student)
-                <tr>
-                    <td>{{$student->name}}</td>
-                    <td>{{$student->course}}</td>
-                    <td>{{$student->office ? $student->office->name : ''}}</td>
-                    <td>
-                       <button class="btn btn-sm btn-primary viewtBtn"
+            <tr>
+                <td>{{ $student->name }}</td>
+                <td>{{ $student->course }}</td>
+                <td>{{ $student->office ? $student->office->name : '' }}</td>
+                <td>
+                    <!-- View Button -->
+                    <button class="btn btn-sm btn-primary viewtBtn"
                             data-id="{{ $student->id }}"
                             data-name="{{ $student->name }}"
                             data-course="{{ $student->course }}"
@@ -43,9 +46,11 @@
                             data-days="{{ $student->daysOfDuty }}"
                             data-bs-toggle="modal"
                             data-bs-target="#showStudentModal">
-                            <i class="fa fa-eye"></i>
-                        </button>
-                        <button class="btn btn-sm btn-primary editBtn"
+                        <i class="fa fa-eye"></i>
+                    </button>
+
+                    <!-- Edit Button -->
+                    <button class="btn btn-sm btn-primary editBtn"
                             data-id="{{ $student->id }}"
                             data-name="{{ $student->name }}"
                             data-course="{{ $student->course }}"
@@ -57,81 +62,67 @@
                             data-days="{{ $student->daysOfDuty }}"
                             data-bs-toggle="modal"
                             data-bs-target="#editStudentModal">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <form action="{{ route('students.destroy', $student->id) }}" id="student-form-{{$student->id}}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" 
-                                    class="btn btn-sm btn-danger deleteBtn" 
-                                    data-id="{{ $student->id }}" 
-                                    data-name="{{ $student->name }}" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#myModal">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+                        <i class="fas fa-edit"></i>
+                    </button>
+
+                    <!-- Delete Button -->
+                    <button type="button" 
+                            class="btn btn-sm btn-danger deleteBtn"
+                            data-id="{{ $student->id }}"
+                            data-name="{{ $student->name }}"
+                            data-bs-toggle="modal"
+                            data-bs-target="#myModal">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
-    </main>
+</main>
 
-    @include('modal.addStudent')
-    @include('modal.editStudent')
-    @include('modal.student.show')
-    @include('modal.student.delete')
+<!-- Include Modals -->
+@include('modal.addStudent')
+@include('modal.editStudent')
+@include('modal.student.show')
+@include('modal.student.delete') <!-- Your delete modal -->
+
 @endsection
 
 @section('scripts')
 <script>
-    
+    // Initialize DataTable
     const table = document.querySelector("#showTable");
     if (table) {
         new simpleDatatables.DataTable(table, {
-            searchable: true,   
-            fixedHeight: false, 
-            sortable: true,     
-            perPage: 5,         
+            searchable: true,
+            fixedHeight: false,
+            sortable: true,
+            perPage: 5,
             perPageSelect: [5, 10, 20, 50]
         });
     }
-</script>
-<script>
-document.querySelectorAll('.editBtn').forEach(button => {
-    button.addEventListener('click', function () {
-        let id = this.dataset.id;
-        let name = this.dataset.name;
-        let course = this.dataset.course;
-        let officeId = this.dataset.office
-        let contact = this.dataset.contact;
-        let dateStart = this.dataset.start;
-        let endOfDuty = this.dataset.end;
-        let hoursOfDuty = this.dataset.hours;
-        let daysOfDuty = this.dataset.days;
 
-        document.getElementById('editStudentForm').action = "/students/" + id;
+    // Edit button
+    document.querySelectorAll('.editBtn').forEach(button => {
+        button.addEventListener('click', function () {
+            const id = this.dataset.id;
+            document.getElementById('editStudentForm').action = "/students/" + id;
 
-        document.getElementById('edit_name').value = name;
-        document.getElementById('edit_course').value = course;
-        document.getElementById('edit_office').value = officeId;
-        document.getElementById('edit_contact').value = contact;
-        document.getElementById('edit_start').value = dateStart;
-        document.getElementById('edit_end').value = endOfDuty;
-        document.getElementById('edit_hours').value = hoursOfDuty;
-        document.getElementById('edit_days').value = daysOfDuty;
+            document.getElementById('edit_name').value = this.dataset.name;
+            document.getElementById('edit_course').value = this.dataset.course;
+            document.getElementById('edit_office').value = this.dataset.office;
+            document.getElementById('edit_contact').value = this.dataset.contact;
+            document.getElementById('edit_start').value = this.dataset.start;
+            document.getElementById('edit_end').value = this.dataset.end;
+            document.getElementById('edit_hours').value = this.dataset.hours;
+            document.getElementById('edit_days').value = this.dataset.days;
+        });
     });
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
 
-    const buttons = document.querySelectorAll(".viewtBtn");
-
-    buttons.forEach(button => {
-        button.addEventListener("click", function () {
-
+    // View button
+    document.querySelectorAll('.viewtBtn').forEach(button => {
+        button.addEventListener('click', function () {
             document.getElementById("show_name").textContent = this.dataset.name;
             document.getElementById("show_course").textContent = this.dataset.course;
             document.getElementById("show_office").textContent = this.dataset.office;
@@ -140,11 +131,25 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("show_end").textContent = this.dataset.end;
             document.getElementById("show_hours").textContent = this.dataset.hours;
             document.getElementById("show_days").textContent = this.dataset.days;
-
         });
     });
 
-});
-</script>
+    // Delete button
+    document.addEventListener("DOMContentLoaded", function () {
+        const deleteButtons = document.querySelectorAll('.deleteBtn');
+        const deleteForm = document.getElementById('deleteForm');
+        const modalText = document.getElementById('modal-text');
 
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const studentId = this.dataset.id;
+                const studentName = this.dataset.name;
+
+                // Update the form action dynamically
+                deleteForm.action = `/students/${studentId}`;
+                modalText.textContent = `Do you really want to delete student "${studentName}"? This process cannot be undone.`;
+            });
+        });
+    });
+</script>
 @endsection

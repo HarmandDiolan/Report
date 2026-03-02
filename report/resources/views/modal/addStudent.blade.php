@@ -12,76 +12,83 @@
                     @csrf
                     <input type="hidden" name="school_id" value="{{ $school->id }}">
 
+                    <!-- Student Names -->
                     <div class="mb-3">
-                        <label for="studentNames" class="form-label">Student Names (one per line)</label>
-                        <textarea class="form-control @error('studentNames') is-invalid @enderror" 
-                                  id="studentNames" name="studentNames" rows="5" placeholder="Enter each student name on a new line" required>{{ old('studentNames') }}</textarea>
-                        @error('studentNames')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <label class="form-label">Student Names (one per line)</label>
+                        <textarea class="form-control"
+                                  name="studentNames"
+                                  rows="5"
+                                  required></textarea>
                     </div>
 
+                    <!-- Course -->
                     <div class="mb-3">
-                        <label for="studentCourse" class="form-label">Course</label>
-                        <input type="text" class="form-control @error('studentCourse') is-invalid @enderror" 
-                               id="studentCourse" name="studentCourse" value="{{ old('studentCourse') }}">
-                        @error('studentCourse')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="studentOffice" class="form-label">Office</label>
-                        <select class="form-control @error('office_id') is-invalid @enderror" 
-                                id="studentOffice" name="office_id">
-                            <option value="">-- Select Office --</option>
-                            @foreach($offices as $office)
-                                <option value="{{ $office->id }}" {{ old('office_id') == $office->id ? 'selected' : '' }}>
-                                    {{ $office->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('office_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Contact Number</label>
-                        <input type="number" id="studentContact" name="contactNumber"
+                        <label class="form-label">Course</label>
+                        <input type="text"
+                               name="studentCourse"
                                class="form-control">
                     </div>
 
+                    <!-- Office -->
+                    <div class="mb-3">
+                        <label class="form-label">Office</label>
+                        <select name="office_id" class="form-control">
+                            <option value="">-- Select Office --</option>
+                            @foreach($offices as $office)
+                                <option value="{{ $office->id }}">{{ $office->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Contact Number (FIXED) -->
+                    <div class="mb-3">
+                        <label class="form-label">Contact Number</label>
+                        <input type="text"
+                               id="contactNumber"
+                               name="contactNumber"
+                               class="form-control"
+                               placeholder="09XXXXXXXXX"
+                               maxlength="11"
+                               inputmode="numeric">
+                    </div>
+
+                    <!-- Dates -->
                     <div class="row">
                         <div class="col">
                             <label class="form-label">Date Started</label>
-                            <input type="date" id="studentStart" name="dateStart"
-                                class="form-control">
+                            <input type="date"
+                                   name="dateStart"
+                                   class="form-control">
                         </div>
-                            <div class="col">
+                        <div class="col">
                             <label class="form-label">End Of Duty</label>
-                            <input type="date" id="studentEnd" name="endOfDuty"
-                                class="form-control">
+                            <input type="date"
+                                   name="endOfDuty"
+                                   class="form-control">
                         </div>
                     </div>
 
-                    <div class="row">
+                    <!-- Duty -->
+                    <div class="row mt-2">
                         <div class="col">
                             <label class="form-label">Hours Of Duty</label>
-                            <input type="number" id="studentHours" name="hoursOfDuty"
-                                class="form-control">
+                            <input type="number"
+                                   name="hoursOfDuty"
+                                   class="form-control">
                         </div>
-                            <div class="col">
+                        <div class="col">
                             <label class="form-label">Days Of Duty</label>
-                            <input type="number" id="studentDays" name="daysOfDuty"
-                                class="form-control">
+                            <input type="number"
+                                   name="daysOfDuty"
+                                   class="form-control">
                         </div>
                     </div>
 
-                    <div class="modal-footer">
+                    <div class="modal-footer mt-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-success">Add Student</button>
                     </div>
+
                 </form>
             </div>
 

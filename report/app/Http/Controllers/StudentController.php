@@ -42,7 +42,7 @@ class StudentController extends Controller
                     'name' => $name,
                     'course' => $request->studentCourse,
                     'office_id' => $request->office_id,
-                    'contactNumber' => $request->studentContact,
+                    'contactNumber' => $request->contactNumber,
                     'dateStart' => $request->dateStart,
                     'hoursOfDuty' => $request->hoursOfDuty,
                     'daysOfDuty' => $request->daysOfDuty,
