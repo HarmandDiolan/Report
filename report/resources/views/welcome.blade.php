@@ -4,11 +4,17 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Login - SB Admin</title>
-        <link href="css/styles.css" rel="stylesheet" />
+        <meta name="description" content="Login to OJT Report" />
+        <meta name="author" content="Report System" />
+        <title>Login &mdash; OJT Report</title>
+        <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <style>
+            body {
+                background: url('{{ asset('assets/img/login-bg.jpg') }}') no-repeat center center fixed;
+                background-size: cover;
+            }
+        </style>
     </head>
     <body class="bg-primary">
         <div id="layoutAuthentication">
@@ -18,29 +24,71 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                    <div class="card-header text-center">
+                                        <img src="{{ asset('assets/img/logo.png') }}" alt="Logo" style="height:50px;" class="mb-2">
+                                        <h3 class="text-center font-weight-light my-2">Welcome Back</h3>
+                                        <p class="small text-muted">Sign in to continue to OJT Report</p>
+                                    </div>
                                     <div class="card-body">
-                                        <form>
+                                        <form method="POST" action="{{ route('login') }}">
+                                            @csrf
+
+                                            @if($errors->any())
+                                                <div class="alert alert-danger">
+                                                    <ul class="mb-0">
+                                                        @foreach($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
+
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
-                                                <label for="inputEmail">Email address</label>
+                                                <input
+                                                    class="form-control @error('email') is-invalid @enderror"
+                                                    id="inputEmail"
+                                                    type="email"
+                                                    name="email"
+                                                    value="{{ old('email') }}"
+                                                    placeholder="name@example.com"
+                                                    required autofocus
+                                                />
+                                                <label for="inputEmail"><i class="fas fa-envelope me-1"></i>Email address</label>
+                                                @error('email')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
-                                                <label for="inputPassword">Password</label>
+                                            <div class="form-floating mb-3 position-relative">
+                                                <input
+                                                    class="form-control @error('password') is-invalid @enderror"
+                                                    id="inputPassword"
+                                                    type="password"
+                                                    name="password"
+                                                    placeholder="Password"
+                                                    required
+                                                />
+                                                <label for="inputPassword"><i class="fas fa-lock me-1"></i>Password</label>
+                                                <span class="position-absolute" style="top:50%; right:1rem; transform:translateY(-50%); cursor:pointer;" onclick="togglePassword()">
+                                                    <i id="pw-icon" class="fas fa-eye"></i>
+                                                </span>
+                                                @error('password')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="form-check mb-3">
-                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
-                                                <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
+                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} />
+                                                <label class="form-check-label" for="inputRememberPassword">Remember Me</label>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password.html">Forgot Password?</a>
-                                                <a class="btn btn-primary" href="{{ route('dashboard') }}">Login</a>
+                                                @if (Route::has('password.request'))
+                                                    <a class="small" href="{{ route('password.request') }}">Forgot Password?</a>
+                                                @endif
+                                                <button type="submit" class="btn btn-primary">Login</button>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
+                                        <div class="small">Don't have an account? Contact administrator to create one.</div>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +100,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div class="text-muted">&copy; {{ date('Y') }} OJT Report</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
@@ -64,6 +112,21 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        <script src="{{ asset('js/scripts.js') }}"></script>
+        <script>
+            function togglePassword() {
+                const pw = document.getElementById('inputPassword');
+                const icon = document.getElementById('pw-icon');
+                if (pw.type === 'password') {
+                    pw.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    pw.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            }
+        </script>
     </body>
 </html>

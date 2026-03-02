@@ -5,13 +5,7 @@
 
     <h2>Schools List</h2>
 
-   @if(session('success'))
-        <div id="flash-success-alert" class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-    
+ 
     <div class="d-flex justify-content-end mb-3">
         <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addModal">
             Add School

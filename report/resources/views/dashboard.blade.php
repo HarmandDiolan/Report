@@ -1,10 +1,12 @@
 @extends('layouts.dashboardlayout')
 
+@section('pageTitle','Dashboard')
+
 @section('content')
 <main class="p-4">
     <div class="row mb-4" style="border: none;">
         <div class="col-md-6">
-            <h2>Dashboard Summary</h2>
+            
         </div>
         <div class="col-md-6 text-end">
             <a href="{{ route('report.export.csv') }}" class="btn btn-success btn-sm me-2" style="border: none;">
