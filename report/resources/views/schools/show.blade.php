@@ -55,7 +55,7 @@
                             data-id="{{ $student->id }}"
                             data-name="{{ $student->name }}"
                             data-course="{{ $student->course }}"
-                            data-office="{{ $student->office }}"
+                            data-office="{{ $student->office_id }}"
                             data-contact="{{ $student->contactNumber }}"
                             data-start="{{ $student->dateStart }}"
                             data-end="{{ $student->endOfDuty }}"

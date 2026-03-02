@@ -59,7 +59,8 @@
 
         </div>
     </div>
-</div><div class="modal fade" id="showStudentModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
+</div>
+<div class="modal fade" id="showStudentModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 

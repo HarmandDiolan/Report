@@ -14,7 +14,7 @@ class OfficeController extends Controller
      */
     public function index()
     {
-        $offices = Office::latest()->get();
+        $offices = Office::withCount('students')->latest()->get();
         return view('offices.index', compact('offices'));
     }
 
@@ -43,7 +43,8 @@ class OfficeController extends Controller
      */
     public function show(Office $office)
     {
-        
+        $offices = Office::withCount('students')->get();
+        return view('offices.index', compact('offices'));
     }
 
     /**

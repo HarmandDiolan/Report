@@ -30,7 +30,7 @@
             @foreach($offices as $office)
             <tr>
                 <td>{{ $office->name}}</td>
-                <td>{{ $office->applicants}}</td>
+                <td>{{ $office->students_count}}</td>
                 <td></td>
             </tr>
             @endforeach

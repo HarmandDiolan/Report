@@ -7,14 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Office extends Model
 {
+
+    use HasFactory;
+
     protected $fillable = [
         'name',
-        'applicants',
     ];
 
     public function students(){
 
-        return this->HasMany(Student::class);
+        return $this->hasMany(Student::class, 'office_id');
 
     }
 }
