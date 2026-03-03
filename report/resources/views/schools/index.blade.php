@@ -1,5 +1,5 @@
 @extends('layouts.dashboardlayout')
-
+@section('title', 'School List')
 @section('content')
 <main class="p-4">
 

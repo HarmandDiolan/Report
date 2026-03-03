@@ -1,11 +1,8 @@
 @extends('layouts.dashboardlayout')
-
+@section('title', 'Office List')
 @section('content')
 <main class="p-4">
-
     <h2>Office List</h2>
-
- 
     <div class="d-flex justify-content-end mb-3">
         <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addModal">
             Add Office
@@ -26,7 +23,19 @@
                 <tr>
                     <td>{{ $office->name}}</td>
                     <td>{{ $office->students_count}}</td>
-                    <td></td>
+                    <td>
+                        <a href="{{route ('offices.show', $office->id)}}" class="btn btn-primary btn-sm">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+
+                        </a>
+                        <button type="button" class="btn btn-sm btn-danger deleteBtn"
+                        data-id="{{ $office->id }}"
+                        data-name="{{ $office->name }}"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteModal">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -34,7 +43,7 @@
         </div>
     </div>
     @include('modal.office.addOffice')
-    
+    @include('modal.office.deleteOffice')
 
 </main>
 @endsection
@@ -52,5 +61,22 @@
             perPageSelect: [5, 10, 20, 50]
         });
     }
+
+     document.addEventListener("DOMContentLoaded", function () {
+        const deleteButtons = document.querySelectorAll('.deleteBtn');
+        const deleteForm = document.getElementById('deleteForm');
+        const modalText = document.getElementById('modal-text');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const officeId = this.dataset.id;
+                const officeName = this.dataset.name;
+
+                // Update the form action dynamically
+                deleteForm.action = `/offices/${officeId}`;
+                modalText.textContent = `Do you really want to delete office "${officeName}"? This process cannot be undone.`;
+            });
+        });
+    });
 </script>
 @endsection

@@ -1,5 +1,5 @@
 @extends('layouts.dashboardlayout')
-
+@section('title', 'Dashboard')
 @section('pageTitle','Dashboard')
 
 @section('content')

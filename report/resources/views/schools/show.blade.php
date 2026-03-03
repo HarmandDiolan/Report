@@ -1,5 +1,5 @@
 @extends('layouts.dashboardlayout')
-
+@section('title', 'School Details')
 @section('content')
 
 <a href="{{ route('schools.index') }}" class="btn btn-light btn-sm">

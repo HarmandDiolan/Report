@@ -43,9 +43,13 @@ class OfficeController extends Controller
      */
     public function show(Office $office)
     {
+        $office->load('students');
+
+
         $offices = Office::withCount('students')->get();
-        return view('offices.index', compact('offices'));
+        return view('offices.show', compact('office', 'offices'));
     }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -68,6 +72,10 @@ class OfficeController extends Controller
      */
     public function destroy(Office $office)
     {
-        //
+        $office->delete();
+
+        return redirect()
+            ->route('offices.index')
+            ->with('success', 'Office has been deleted successfully');
     }
 }
