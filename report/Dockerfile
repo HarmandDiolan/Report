@@ -50,7 +50,6 @@ RUN php artisan config:clear \
     && php artisan view:clear
 
 # Expose port 9000 for php-fpm
-EXPOSE 9000
+EXPOSE 8080
 
-# Start PHP-FPM
-CMD ["php-fpm"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
